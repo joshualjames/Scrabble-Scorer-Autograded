@@ -39,7 +39,7 @@ function initialPrompt() {
    // for (letter of splitWord) {
    //    console.log(splitWord);
    //    if (!allowedChars.includes(letter)) {
-
+//TBD
    //    }
    // }
    // console.log(splitWord);
