@@ -34,16 +34,7 @@ function oldScrabbleScorer(word) {
 
 function initialPrompt() {
    let word = input.question("Let's play some scrabble! Enter a word: ");
-   // let allowedChars = "abcdefghijklmnopqrstuvwxyz".split('');
-   let splitWord = word.split('');
-   // for (letter of splitWord) {
-   //    console.log(splitWord);
-   //    if (!allowedChars.includes(letter)) {
-   //TBD
-   //    }
-   // }
-   // console.log(splitWord);
-   return splitWord.join('');
+   return word;
 };
 
 function verifyInputValidity(word) {
