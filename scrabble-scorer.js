@@ -3,31 +3,31 @@
 const input = require("readline-sync");
 
 const oldPointStructure = {
-  1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
-  2: ['D', 'G'],
-  3: ['B', 'C', 'M', 'P'],
-  4: ['F', 'H', 'V', 'W', 'Y'],
-  5: ['K'],
-  8: ['J', 'X'],
-  10: ['Q', 'Z']
+   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
+   2: ['D', 'G'],
+   3: ['B', 'C', 'M', 'P'],
+   4: ['F', 'H', 'V', 'W', 'Y'],
+   5: ['K'],
+   8: ['J', 'X'],
+   10: ['Q', 'Z']
 };
 
 function oldScrabbleScorer(word) {
-	word = word.toUpperCase();
-	let letterPoints = "";
- 
-	for (let i = 0; i < word.length; i++) {
- 
-	  for (const pointValue in oldPointStructure) {
- 
-		 if (oldPointStructure[pointValue].includes(word[i])) {
-			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
-		 }
- 
-	  }
-	}
-	return letterPoints;
- }
+   word = word.toUpperCase();
+   let letterPoints = "";
+
+   for (let i = 0; i < word.length; i++) {
+
+      for (const pointValue in oldPointStructure) {
+
+         if (oldPointStructure[pointValue].includes(word[i])) {
+            letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+         }
+
+      }
+   }
+   return letterPoints;
+}
 
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
@@ -39,11 +39,23 @@ function initialPrompt() {
    // for (letter of splitWord) {
    //    console.log(splitWord);
    //    if (!allowedChars.includes(letter)) {
-//TBD
+   //TBD
    //    }
    // }
    // console.log(splitWord);
    return splitWord.join('');
+};
+
+function verifyInputValidity(word) {
+   let allowedChars = "abcdefghijklmnopqrstuvwxyz ".split('');
+   let splitWord = word.split('');
+   for (letter in splitWord) {
+      if (!allowedChars.includes(splitWord[letter])) {
+         let newWord = input.question("Invalid word. Enter a new word: ");
+         return verifyInputValidity(newWord);
+      }
+   }
+   return word;
 };
 
 let simpleScorer = function (word) {
@@ -78,7 +90,6 @@ let scrabbleScorer = function (word) {
    scoredWord = word.toLowerCase().split('');
    let totalScore = 0;
    for (i in scoredWord) {
-      console.log(newPointStructure);
       totalScore += newPointStructure[scoredWord[i]];
       console.log(`Points for '${scoredWord[i]}': ${newPointStructure[scoredWord[i]]}`)
    }
@@ -119,14 +130,14 @@ function scorerPrompt() {
 
    userSelection = input.question('Enter 0, 1, or 2: ');
    userSelection = Number(userSelection);
-   while ((userSelection) < 0 || (userSelection) > 2){
+   while ((userSelection) < 0 || (userSelection) > 2) {
       userSelection = input.question('Invalid input. Please select using integers 0, 1, or 2. ');
    }
    if ((userSelection) === 0) {
       return scoringAlgorithms[0];
    } else if ((userSelection) === 1) {
       return scoringAlgorithms[1];
-   } else ((userSelection) === 2); 
+   } else ((userSelection) === 2);
    return scoringAlgorithms[2];
 }
 
@@ -144,7 +155,7 @@ function transform(obj) {
 let newPointStructure = transform(oldPointStructure);
 
 function runProgram() {
-   let word = initialPrompt();
+   let word = verifyInputValidity(initialPrompt());
    const algorithmSelection = scorerPrompt();
    console.log(`Score for ${word}:
 ${algorithmSelection.scorerFunction(word)}`);
@@ -161,6 +172,6 @@ module.exports = {
    scrabbleScorer: scrabbleScorer,
    scoringAlgorithms: scoringAlgorithms,
    newPointStructure: newPointStructure,
-	runProgram: runProgram,
-	scorerPrompt: scorerPrompt
+   runProgram: runProgram,
+   scorerPrompt: scorerPrompt
 };
