@@ -39,7 +39,7 @@ function initialPrompt() {
 
 function verifyInputValidity(word) {
    let allowedChars = "abcdefghijklmnopqrstuvwxyz ".split('');
-   let splitWord = word.split('');
+   let splitWord = word.toLowerCase().split('');
    for (letter in splitWord) {
       if (!allowedChars.includes(splitWord[letter])) {
          let newWord = input.question("Invalid word. Enter a new word: ");
